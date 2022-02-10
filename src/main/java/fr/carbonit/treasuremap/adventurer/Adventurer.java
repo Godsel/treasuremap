@@ -1,14 +1,14 @@
 package fr.carbonit.treasuremap.adventurer;
 
 
-import fr.carbonit.treasuremap.TreasureFinder;
+import fr.carbonit.treasuremap.TreasureHunter;
 import fr.carbonit.treasuremap.cell.MapCell;
 
 import java.awt.*;
 import java.util.Deque;
 
 public abstract class Adventurer
-        implements TreasureFinder {
+        implements TreasureHunter {
     private final String        name;
     protected     Integer       numberOfTreasure = 0;
     protected     Point         coordinates;
