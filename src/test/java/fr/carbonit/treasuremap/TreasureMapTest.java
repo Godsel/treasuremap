@@ -4,12 +4,14 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.*;
+
 class TreasureMapTest {
     @Test
     void should_return_map_with_width_of_3_cells_and_height_of_4_cells() {
         // Given
-        String expected = "C - 3 - 4";
-        Integer mapWidth = 3;
+        String  expected  = "C - 3 - 4";
+        Integer mapWidth  = 3;
         Integer mapHeight = 4;
 
 
@@ -17,13 +19,14 @@ class TreasureMapTest {
         TreasureMap treasureMap = new TreasureMap(mapWidth, mapHeight);
 
         // Then
-        Assertions.assertThat(treasureMap.toString()).startsWith(expected);
+        assertThat(treasureMap.toString())
+                  .startsWith(expected);
     }
 
     @Test
-    void should_return_map_with_width_of_4_cells_and_height_of_5_cells(){
+    void should_return_map_with_width_of_4_cells_and_height_of_5_cells() {
         // Given
-        Integer mapWidth = 4;
+        Integer mapWidth  = 4;
         Integer mapHeight = 5;
 
         String expected = "C - 4 - 5";
@@ -32,13 +35,14 @@ class TreasureMapTest {
         TreasureMap treasureMap = new TreasureMap(mapWidth, mapHeight);
 
         // Then
-        Assertions.assertThat(treasureMap.toString()).startsWith(expected);
+        assertThat(treasureMap.toString())
+                  .startsWith(expected);
     }
 
     @Test
     void should_return_map_with_one_mountain_at_0_0() {
         // Given
-        Integer mapWidth = 3;
+        Integer mapWidth  = 3;
         Integer mapHeight = 4;
 
         Integer mountainXCoordinate = 0;
@@ -52,14 +56,15 @@ class TreasureMapTest {
 
 
         // Then
-        Assertions.assertThat(treasureMap).hasToString(expected
-                                                      );
+        assertThat(treasureMap.toString())
+                  .startsWith(expected
+                             );
     }
 
     @Test
     void should_return_map_with_one_mountain_at_1_1() {
         // Given
-        Integer mapWidth = 3;
+        Integer mapWidth  = 3;
         Integer mapHeight = 4;
 
         Integer mountainXCoordinate = 1;
@@ -73,14 +78,15 @@ class TreasureMapTest {
 
 
         // Then
-        Assertions.assertThat(treasureMap).hasToString(expected
-                                                      );
+        assertThat(treasureMap.toString())
+                  .startsWith(expected
+                             );
     }
 
     @Test
     void should_return_map_with_one_mountain_at_1_1_and_one_mountain_at_0_0() {
         // Given
-        Integer mapWidth = 3;
+        Integer mapWidth  = 3;
         Integer mapHeight = 4;
 
         String expected = "C - 3 - 4\nM - 0 - 0\nM - 1 - 1";
@@ -92,8 +98,50 @@ class TreasureMapTest {
 
 
         // Then
-        Assertions.assertThat(treasureMap).hasToString(expected
-                                                      );
+        assertThat(treasureMap.toString())
+                  .startsWith(expected
+                             );
+    }
+
+    @Test
+    void should_return_map_with_one_mountain_at_1_1_and_treasure_at0_0() {
+        // Given
+        Integer mapWidth  = 3;
+        Integer mapHeight = 4;
+
+        String expected = "C - 3 - 4\nM - 1 - 1\nT - 0 - 0 - 1";
+
+        // When
+        TreasureMap treasureMap = new TreasureMap(mapWidth, mapHeight);
+        treasureMap.addMountain(1, 1);
+        treasureMap.addTreasure(0, 0);
+
+
+        // Then
+        assertThat(treasureMap)
+                  .hasToString(expected
+                              );
+    }
+
+    @Test
+    void should_return_map_with_one_mountain_at_1_1_and_2_treasures_at0_0() {
+        // Given
+        Integer mapWidth  = 3;
+        Integer mapHeight = 4;
+
+        String expected = "C - 3 - 4\nM - 1 - 1\nT - 0 - 0 - 2";
+
+        // When
+        TreasureMap treasureMap = new TreasureMap(mapWidth, mapHeight);
+        treasureMap.addMountain(1, 1);
+        treasureMap.addTreasure(0, 0);
+        treasureMap.addTreasure(0, 0);
+
+
+        // Then
+        assertThat(treasureMap)
+                .hasToString(expected
+                            );
     }
 
 

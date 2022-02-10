@@ -27,6 +27,10 @@ public class TreasureMap {
         this.mapCells[xCoordinate][yCoordinate] = new MountainCell(xCoordinate, yCoordinate);
     }
 
+    public void addTreasure(int xCoordinate, int yCoordinate) {
+        this.mapCells[xCoordinate][yCoordinate].addTreasure();
+    }
+
     public String toString() {
         StringBuilder mapDefinition = new StringBuilder("C - " + width + " - " + height + "\n");
 
@@ -35,6 +39,22 @@ public class TreasureMap {
                 MapCell mapCell = mapCells[mapWidth][mapHeight];
                 if (Boolean.TRUE.equals(mapCell.isMountain())) {
                     mapDefinition.append(mapCell)
+                                 .append("\n");
+                }
+            }
+        }
+
+        for (int mapWidth = 0; mapWidth < width; mapWidth++) {
+            for (int mapHeight = 0; mapHeight < height; mapHeight++) {
+                MapCell mapCell = mapCells[mapWidth][mapHeight];
+                Integer treasures = mapCell.getTreasures();
+                if (treasures > 0) {
+                    mapDefinition.append("T - ")
+                                 .append(mapWidth)
+                                 .append(" - ")
+                                 .append(mapHeight)
+                                 .append(" - ")
+                                 .append(treasures)
                                  .append("\n");
                 }
             }
