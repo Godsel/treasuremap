@@ -2,6 +2,7 @@ package fr.carbonit.treasuremap;
 
 import fr.carbonit.treasuremap.adventurer.Orientation;
 import fr.carbonit.treasuremap.adventurer.PlainAdventurer;
+import fr.carbonit.treasuremap.exception.DataValidity;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -9,6 +10,7 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class TreasureHuntTest {
     @Test
@@ -25,66 +27,6 @@ class TreasureHuntTest {
         // Then
         assertThat(treasureHunt.getSimulationResult())
                 .startsWith(expected);
-    }
-
-    @Test
-    void should_return_map_with_width_of_4_cells_and_height_of_5_cells() {
-        // Given
-        Integer mapWidth  = 4;
-        Integer mapHeight = 5;
-
-        String expected = "C - 4 - 5";
-
-        // When
-        TreasureHunt treasureHunt = new TreasureHunt(mapWidth, mapHeight);
-
-        // Then
-        assertThat(treasureHunt.getSimulationResult())
-                .startsWith(expected);
-    }
-
-    @Test
-    void should_return_map_with_one_mountain_at_0_0() {
-        // Given
-        Integer mapWidth  = 3;
-        Integer mapHeight = 4;
-
-        Integer mountainXCoordinate = 0;
-        Integer mountainYCoordinate = 0;
-
-        String expected = "C - 3 - 4\nM - 0 - 0";
-
-        // When
-        TreasureHunt treasureHunt = new TreasureHunt(mapWidth, mapHeight);
-        treasureHunt.putMountainOnTreasureMap(mountainXCoordinate, mountainYCoordinate);
-
-
-        // Then
-        assertThat(treasureHunt.getSimulationResult())
-                .startsWith(expected
-                           );
-    }
-
-    @Test
-    void should_return_map_with_one_mountain_at_1_1() {
-        // Given
-        Integer mapWidth  = 3;
-        Integer mapHeight = 4;
-
-        Integer mountainXCoordinate = 1;
-        Integer mountainYCoordinate = 1;
-
-        String expected = "C - 3 - 4\nM - 1 - 1";
-
-        // When
-        TreasureHunt treasureHunt = new TreasureHunt(mapWidth, mapHeight);
-        treasureHunt.putMountainOnTreasureMap(mountainXCoordinate, mountainYCoordinate);
-
-
-        // Then
-        assertThat(treasureHunt.getSimulationResult())
-                .startsWith(expected
-                           );
     }
 
     @Test
@@ -149,7 +91,9 @@ class TreasureHuntTest {
     }
 
     @Test
-    void should_return_expected_output_after_simulating() {
+    void should_return_expected_output_after_simulating()
+            throws
+            DataValidity {
         // Given
         Integer mapWidth  = 3;
         Integer mapHeight = 4;
@@ -182,6 +126,49 @@ class TreasureHuntTest {
         String output = treasureHunt.getSimulationResult();
 
         assertThat(output).isEqualTo(expected);
+    }
+
+    @Test
+    void should_throw_same_location_exception_when_adventurer_on_the_same_position_than_an_other()
+            throws
+            DataValidity {
+        // Given
+        Integer mapWidth  = 3;
+        Integer mapHeight = 4;
+
+        TreasureHunt treasureHunt = new TreasureHunt(mapWidth, mapHeight);
+        PlainAdventurer firstAdventurer = new PlainAdventurer("Lara",
+                                                              new Point(1, 1),
+                                                              Orientation.S,
+                                                              new ArrayDeque<>(Arrays.asList("A",
+                                                                                             "A",
+                                                                                             "D",
+                                                                                             "A",
+                                                                                             "D",
+                                                                                             "A",
+                                                                                             "G",
+                                                                                             "G",
+                                                                                             "A")));
+        treasureHunt.putAdventurerOnTreasureMap(firstAdventurer);
+        // When
+
+        PlainAdventurer secondAdventurer = new PlainAdventurer("Indiana",
+                                                               new Point(1, 1),
+                                                               Orientation.S,
+                                                               new ArrayDeque<>(Arrays.asList(
+                                                                       "A",
+                                                                       "A",
+                                                                       "D",
+                                                                       "A",
+                                                                       "D",
+                                                                       "A",
+                                                                       "G",
+                                                                       "G",
+                                                                       "A")));
+        assertThatThrownBy(() -> {
+            treasureHunt.putAdventurerOnTreasureMap(secondAdventurer);
+        }).isInstanceOf(
+                DataValidity.class);
     }
 
 

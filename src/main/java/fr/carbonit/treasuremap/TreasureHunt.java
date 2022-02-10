@@ -4,6 +4,7 @@ import fr.carbonit.treasuremap.adventurer.Adventurer;
 import fr.carbonit.treasuremap.cell.MapCell;
 import fr.carbonit.treasuremap.cell.MountainCell;
 import fr.carbonit.treasuremap.cell.PlainCell;
+import fr.carbonit.treasuremap.exception.DataValidity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +44,19 @@ public class TreasureHunt {
         this.treasureMap[xCoordinate][yCoordinate].addTreasure();
     }
 
-    public void putAdventurerOnTreasureMap(Adventurer adventurer) {
-        this.treasureMap[adventurer.getCoordinates().x][adventurer.getCoordinates().y].updateOccupiedStatus();
+    public void putAdventurerOnTreasureMap(Adventurer adventurer)
+            throws
+            DataValidity {
+        MapCell mapCell = this.treasureMap[adventurer.getCoordinates().x][adventurer.getCoordinates().y];
+        verifyCollisionWithExistingAdventurer(mapCell);
+        mapCell.updateOccupiedStatus();
         this.adventurerList.add(adventurer);
+    }
+
+    private void verifyCollisionWithExistingAdventurer(MapCell mapCell) {
+        if (Boolean.TRUE.equals(mapCell.isOccupied())) {
+            throw new DataValidity("Adventurer cannot start on the same location than an other one");
+        }
     }
 
     public void simulate() {
@@ -60,18 +71,26 @@ public class TreasureHunt {
     }
 
     public String getSimulationResult() {
-        StringBuilder mapDefinition = new StringBuilder("C - " + width + " - " + height + "\n");
+        StringBuilder simulationResult = new StringBuilder();
+        writeMapDefinition(simulationResult);
 
-        for (int mapWidth = 0; mapWidth < width; mapWidth++) {
-            for (int mapHeight = 0; mapHeight < height; mapHeight++) {
-                MapCell mapCell = treasureMap[mapWidth][mapHeight];
-                if (Boolean.TRUE.equals(mapCell.isMountain())) {
-                    mapDefinition.append(mapCell)
-                                 .append("\n");
-                }
-            }
-        }
+        writeMountainDefinitions(simulationResult);
 
+        writeTreasureDefinitions(simulationResult);
+
+        writeAdventurerDefinitions(simulationResult);
+
+        deleteEmptyLine(simulationResult);
+        return simulationResult.toString();
+    }
+
+    private void writeAdventurerDefinitions(StringBuilder mapDefinition) {
+        mapDefinition.append(adventurerList.stream()
+                                           .map(Objects::toString)
+                                           .collect(Collectors.joining("\n")));
+    }
+
+    private void writeTreasureDefinitions(StringBuilder mapDefinition) {
         for (int mapWidth = 0; mapWidth < width; mapWidth++) {
             for (int mapHeight = 0; mapHeight < height; mapHeight++) {
                 MapCell mapCell   = treasureMap[mapWidth][mapHeight];
@@ -87,13 +106,26 @@ public class TreasureHunt {
                 }
             }
         }
+    }
 
-        mapDefinition.append(adventurerList.stream()
-                                           .map(Objects::toString)
-                                           .collect(Collectors.joining("\n")));
+    private void writeMountainDefinitions(StringBuilder mapDefinition) {
+        for (int mapWidth = 0; mapWidth < width; mapWidth++) {
+            for (int mapHeight = 0; mapHeight < height; mapHeight++) {
+                MapCell mapCell = treasureMap[mapWidth][mapHeight];
+                if (Boolean.TRUE.equals(mapCell.isMountain())) {
+                    mapDefinition.append(mapCell)
+                                 .append("\n");
+                }
+            }
+        }
+    }
 
-        deleteEmptyLine(mapDefinition);
-        return mapDefinition.toString();
+    private void writeMapDefinition(StringBuilder mapDefinition) {
+        mapDefinition.append("C - ")
+                     .append(width)
+                     .append(" - ")
+                     .append(height)
+                     .append("\n");
     }
 
     private void deleteEmptyLine(StringBuilder mapDefinition) {
