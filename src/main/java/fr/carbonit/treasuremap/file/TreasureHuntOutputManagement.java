@@ -1,7 +1,7 @@
 package fr.carbonit.treasuremap.file;
 
 import fr.carbonit.treasuremap.TreasureHunt;
-import fr.carbonit.treasuremap.exception.OutputFile;
+import fr.carbonit.treasuremap.exception.TreasureHuntFile;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class TreasureHuntOutputManagement {
         try (FileWriter fileWriter = new FileWriter("src/main/resources/output.txt")) {
             fileWriter.write(treasureHunt.getSimulationResult());
         } catch (IOException ioException) {
-            throw new OutputFile("Error when writing output file", ioException.getCause());
+            throw new TreasureHuntFile("Error when writing output file", ioException.getCause());
         }
     }
 }

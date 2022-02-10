@@ -1,8 +1,8 @@
 package fr.carbonit.treasuremap.exception;
 
-public class OutputFile
+public class TreasureHuntFile
         extends RuntimeException {
-    public OutputFile(String message, Throwable cause) {
+    public TreasureHuntFile(String message, Throwable cause) {
         super(message, cause);
     }
 }
