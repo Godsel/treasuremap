@@ -8,17 +8,18 @@ import java.util.Deque;
 
 public abstract class Adventurer
         implements TreasureHunter {
-    private final String        name;
-    protected     Integer       numberOfTreasure = 0;
-    protected     Point         coordinates;
-    protected     Orientation   orientation;
-    protected     Deque<String> actions;
+    private final String                name;
+    protected     Integer               numberOfTreasure = 0;
+    protected     Point                 coordinates;
+    protected     AdventurerOrientation adventurerOrientation;
+    protected     Deque<String>         actions;
 
-    protected Adventurer(String name, Point coords, Orientation orientation, Deque<String> actions) {
-        this.name        = name;
-        this.coordinates = coords;
-        this.orientation = orientation;
-        this.actions     = actions;
+    protected Adventurer(String name, Point coords, AdventurerOrientation adventurerOrientation,
+                         Deque<String> actions) {
+        this.name                  = name;
+        this.coordinates           = coords;
+        this.adventurerOrientation = adventurerOrientation;
+        this.actions               = actions;
     }
 
     public void winTreasure(MapCell mapCell) {
@@ -35,7 +36,8 @@ public abstract class Adventurer
     }
 
     public String toString() {
-        return "A - " + name + " - " + coordinates.x + " - " + coordinates.y + " - " + orientation.name() + " - " +
+        return "A - " + name + " - " + coordinates.x + " - " + coordinates.y + " - " + adventurerOrientation.name() +
+               " - " +
                numberOfTreasure;
     }
 

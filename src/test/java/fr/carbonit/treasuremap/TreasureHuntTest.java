@@ -1,8 +1,9 @@
 package fr.carbonit.treasuremap;
 
-import fr.carbonit.treasuremap.adventurer.Orientation;
+import fr.carbonit.treasuremap.adventurer.AdventurerOrientation;
 import fr.carbonit.treasuremap.adventurer.PlainAdventurer;
 import fr.carbonit.treasuremap.exception.DataValidity;
+import fr.carbonit.treasuremap.treasurehunt.TreasureHunt;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -60,7 +61,7 @@ class TreasureHuntTest {
         // When
         TreasureHunt treasureHunt = new TreasureHunt(mapWidth, mapHeight);
         treasureHunt.putMountainOnTreasureMap(1, 1);
-        treasureHunt.putTreasureOnTreasureMap(0, 0);
+        treasureHunt.putTreasureOnTreasureMap(0, 0, 1);
 
 
         // Then
@@ -80,8 +81,8 @@ class TreasureHuntTest {
         // When
         TreasureHunt treasureHunt = new TreasureHunt(mapWidth, mapHeight);
         treasureHunt.putMountainOnTreasureMap(1, 1);
-        treasureHunt.putTreasureOnTreasureMap(0, 0);
-        treasureHunt.putTreasureOnTreasureMap(0, 0);
+        treasureHunt.putTreasureOnTreasureMap(0, 0, 1);
+        treasureHunt.putTreasureOnTreasureMap(0, 0, 1);
 
 
         // Then
@@ -103,14 +104,14 @@ class TreasureHuntTest {
         TreasureHunt treasureHunt = new TreasureHunt(mapWidth, mapHeight);
         treasureHunt.putMountainOnTreasureMap(1, 0);
         treasureHunt.putMountainOnTreasureMap(2, 1);
-        treasureHunt.putTreasureOnTreasureMap(0, 3);
-        treasureHunt.putTreasureOnTreasureMap(0, 3);
-        treasureHunt.putTreasureOnTreasureMap(1, 3);
-        treasureHunt.putTreasureOnTreasureMap(1, 3);
-        treasureHunt.putTreasureOnTreasureMap(1, 3);
+        treasureHunt.putTreasureOnTreasureMap(0, 3, 1);
+        treasureHunt.putTreasureOnTreasureMap(0, 3, 1);
+        treasureHunt.putTreasureOnTreasureMap(1, 3, 1);
+        treasureHunt.putTreasureOnTreasureMap(1, 3, 1);
+        treasureHunt.putTreasureOnTreasureMap(1, 3, 1);
         treasureHunt.putAdventurerOnTreasureMap(new PlainAdventurer("Lara",
                                                                     new Point(1, 1),
-                                                                    Orientation.S,
+                                                                    AdventurerOrientation.S,
                                                                     new ArrayDeque<>(Arrays.asList("A",
                                                                                                    "A",
                                                                                                    "D",
@@ -139,7 +140,7 @@ class TreasureHuntTest {
         TreasureHunt treasureHunt = new TreasureHunt(mapWidth, mapHeight);
         PlainAdventurer firstAdventurer = new PlainAdventurer("Lara",
                                                               new Point(1, 1),
-                                                              Orientation.S,
+                                                              AdventurerOrientation.S,
                                                               new ArrayDeque<>(Arrays.asList("A",
                                                                                              "A",
                                                                                              "D",
@@ -154,7 +155,7 @@ class TreasureHuntTest {
 
         PlainAdventurer secondAdventurer = new PlainAdventurer("Indiana",
                                                                new Point(1, 1),
-                                                               Orientation.S,
+                                                               AdventurerOrientation.S,
                                                                new ArrayDeque<>(Arrays.asList(
                                                                        "A",
                                                                        "A",

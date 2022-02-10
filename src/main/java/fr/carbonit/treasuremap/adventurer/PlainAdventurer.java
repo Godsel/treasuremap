@@ -9,8 +9,9 @@ import java.util.Objects;
 public class PlainAdventurer
         extends Adventurer {
 
-    public PlainAdventurer(String name, Point coords, Orientation orientation, Deque<String> actions) {
-        super(name, coords, orientation, actions);
+    public PlainAdventurer(String name, Point coords, AdventurerOrientation adventurerOrientation,
+                           Deque<String> actions) {
+        super(name, coords, adventurerOrientation, actions);
     }
 
     @Override
@@ -20,9 +21,9 @@ public class PlainAdventurer
         MapCell currentCell    = mapCells[coordinates.x][coordinates.y];
         Point   maxPoint       = new Point(mapCells.length, mapCells[0].length);
         if (isMovementAStepForward(movementType)) {
-            newCoordinates = orientation.getNewCoordinates(coordinates, maxPoint);
+            newCoordinates = adventurerOrientation.getNewCoordinates(coordinates, maxPoint);
         } else {
-            orientation = orientation.getNewOrientation(movementType);
+            adventurerOrientation = adventurerOrientation.getNewOrientation(movementType);
         }
         if (!coordinates.equals(newCoordinates)) {
             MapCell nextCell = mapCells[newCoordinates.x][newCoordinates.y];

@@ -1,7 +1,8 @@
 package fr.carbonit.treasuremap;
 
 import fr.carbonit.treasuremap.exception.TreasureHuntFile;
-import fr.carbonit.treasuremap.file.TreasureHuntInputManagement;
+import fr.carbonit.treasuremap.treasurehunt.TreasureHunt;
+import fr.carbonit.treasuremap.treasurehunt.TreasureHuntInputManagement;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,5 +17,21 @@ class TreasureHuntInputManagementTest {
         // Then
         Assertions.assertThatThrownBy(treasureHuntInputManagement::read)
                   .isInstanceOf(TreasureHuntFile.class);
+    }
+
+    @Test
+    void should_return_treasureMap_object() {
+        // Given
+        String argFilePath = null;
+        TreasureHuntInputManagement
+                treasureHuntInputManagement = new TreasureHuntInputManagement("src/main/resources/input.txt");
+        // When
+
+        TreasureHunt read = treasureHuntInputManagement.read();
+
+        // Then
+
+        Assertions.assertThat(read)
+                  .isNotNull();
     }
 }

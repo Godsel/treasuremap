@@ -1,4 +1,4 @@
-package fr.carbonit.treasuremap;
+package fr.carbonit.treasuremap.treasurehunt;
 
 import fr.carbonit.treasuremap.adventurer.Adventurer;
 import fr.carbonit.treasuremap.cell.MapCell;
@@ -40,8 +40,10 @@ public class TreasureHunt {
         this.treasureMap[xCoordinate][yCoordinate] = new MountainCell(xCoordinate, yCoordinate);
     }
 
-    public void putTreasureOnTreasureMap(int xCoordinate, int yCoordinate) {
-        this.treasureMap[xCoordinate][yCoordinate].addTreasure();
+    public void putTreasureOnTreasureMap(int xCoordinate, int yCoordinate, Integer number) {
+        for (int treasuresNumber = 0; treasuresNumber < number; treasuresNumber++) {
+            this.treasureMap[xCoordinate][yCoordinate].addTreasure();
+        }
     }
 
     public void putAdventurerOnTreasureMap(Adventurer adventurer)

@@ -1,6 +1,7 @@
 package fr.carbonit.treasuremap;
 
-import fr.carbonit.treasuremap.file.TreasureHuntOutputManagement;
+import fr.carbonit.treasuremap.treasurehunt.TreasureHunt;
+import fr.carbonit.treasuremap.treasurehunt.TreasureHuntOutputManagement;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +28,7 @@ class TreasureHuntOutputManagementTest {
     @Test
     void should_write_file_to_outputFileFolder() {
         // Given
-        String filePath = "src/main/resources/output.txt";
+        String filePath = "./output.txt";
         // When
         String expected = "TREASURE HUNT FINISHED\nEND";
         Mockito.when(treasureHunt.getSimulationResult())
@@ -44,8 +45,8 @@ class TreasureHuntOutputManagementTest {
             Assertions.assertThat(reader.lines()
                                         .collect(Collectors.joining()))
                       .isEqualTo(expected.replace("\n", ""));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
         } finally {
             file.delete();
         }

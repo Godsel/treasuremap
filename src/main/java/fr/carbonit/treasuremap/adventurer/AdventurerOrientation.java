@@ -2,14 +2,14 @@ package fr.carbonit.treasuremap.adventurer;
 
 import java.awt.*;
 
-public enum Orientation {
+public enum AdventurerOrientation {
     N {
         @Override
-        Orientation getNewOrientation(String rotation) {
+        AdventurerOrientation getNewOrientation(String rotation) {
             if (rotation.equals("G")) {
-                return Orientation.O;
+                return AdventurerOrientation.O;
             }
-            return Orientation.E;
+            return AdventurerOrientation.E;
         }
 
         @Override
@@ -23,11 +23,11 @@ public enum Orientation {
     },
     S {
         @Override
-        Orientation getNewOrientation(String rotation) {
+        AdventurerOrientation getNewOrientation(String rotation) {
             if (rotation.equals("G")) {
-                return Orientation.E;
+                return AdventurerOrientation.E;
             }
-            return Orientation.O;
+            return AdventurerOrientation.O;
         }
 
         @Override
@@ -41,11 +41,11 @@ public enum Orientation {
     },
     O {
         @Override
-        Orientation getNewOrientation(String rotation) {
+        AdventurerOrientation getNewOrientation(String rotation) {
             if (rotation.equals("G")) {
-                return Orientation.S;
+                return AdventurerOrientation.S;
             }
-            return Orientation.N;
+            return AdventurerOrientation.N;
         }
 
         @Override
@@ -59,11 +59,11 @@ public enum Orientation {
     },
     E {
         @Override
-        Orientation getNewOrientation(String rotation) {
+        AdventurerOrientation getNewOrientation(String rotation) {
             if (rotation.equals("G")) {
-                return Orientation.N;
+                return AdventurerOrientation.N;
             }
-            return Orientation.S;
+            return AdventurerOrientation.S;
         }
 
         @Override
@@ -76,7 +76,7 @@ public enum Orientation {
         }
     };
 
-    abstract Orientation getNewOrientation(String rotation);
+    abstract AdventurerOrientation getNewOrientation(String rotation);
 
     abstract Point getNewCoordinates(Point point, Point maxPoint);
 }
