@@ -1,4 +1,4 @@
-package fr.carbonit.treasuremap;
+package fr.carbonit.treasuremap.cell;
 
 public class MountainCell
         extends MapCell {
@@ -7,7 +7,7 @@ public class MountainCell
     }
 
     public String toString() {
-        return "M - " + xCoordinate + " - " + yCoordinate;
+        return "M - " + coords.x + " - " + coords.y;
     }
 
     @Override

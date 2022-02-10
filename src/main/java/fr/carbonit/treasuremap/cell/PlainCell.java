@@ -1,4 +1,4 @@
-package fr.carbonit.treasuremap;
+package fr.carbonit.treasuremap.cell;
 
 
 public class PlainCell extends MapCell {
@@ -7,6 +7,6 @@ public class PlainCell extends MapCell {
     }
 
     public String toString() {
-        return "P - " + xCoordinate + " - " + yCoordinate;
+        return "P - " + coords.x + " - " + coords.y;
     }
 }
