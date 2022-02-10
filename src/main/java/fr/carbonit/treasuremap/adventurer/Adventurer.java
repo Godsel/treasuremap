@@ -1,7 +1,6 @@
 package fr.carbonit.treasuremap.adventurer;
 
 
-import fr.carbonit.treasuremap.TreasureHunter;
 import fr.carbonit.treasuremap.cell.MapCell;
 
 import java.awt.*;

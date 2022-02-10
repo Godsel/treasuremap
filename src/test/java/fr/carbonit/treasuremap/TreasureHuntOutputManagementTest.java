@@ -1,5 +1,6 @@
 package fr.carbonit.treasuremap;
 
+import fr.carbonit.treasuremap.file.TreasureHuntOutputManagement;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,13 +16,13 @@ import java.io.FileReader;
 import java.util.stream.Collectors;
 
 @ExtendWith(MockitoExtension.class)
-class TreasureHunterOutputManagementTest {
+class TreasureHuntOutputManagementTest {
 
     @Mock
     TreasureHunt treasureHunt;
 
     @InjectMocks
-    TreasureHunterOutputManagement treasureHunterOutputManagement;
+    TreasureHuntOutputManagement treasureHuntOutputManagement;
 
     @Test
     void should_write_file_to_outputFileFolder() {
@@ -31,7 +32,7 @@ class TreasureHunterOutputManagementTest {
         String expected = "TREASURE HUNT FINISHED\nEND";
         Mockito.when(treasureHunt.getSimulationResult())
                .thenReturn(expected);
-        treasureHunterOutputManagement.write();
+        treasureHuntOutputManagement.write();
         File file = new File(filePath);
         // Then
         Assertions.assertThat(file)
