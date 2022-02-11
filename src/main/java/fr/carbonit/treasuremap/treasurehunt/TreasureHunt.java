@@ -65,12 +65,12 @@ public class TreasureHunt {
         verifyCoordinates(adventurer.getCoordinates().x, adventurer.getCoordinates().y);
         MapCell mapCell = this.treasureMap[adventurer.getCoordinates().x][adventurer.getCoordinates().y];
         verifyCollisionWithExistingAdventurer(mapCell);
-        mapCell.updateOccupiedStatus();
+        mapCell.updateAdventurerStatus();
         this.adventurerList.add(adventurer);
     }
 
     private void verifyCollisionWithExistingAdventurer(MapCell mapCell) {
-        if (Boolean.TRUE.equals(mapCell.isOccupied())) {
+        if (Boolean.TRUE.equals(mapCell.isOccupiedByAnAdventurer())) {
             throw new DataValidity("Adventurer cannot start on the same location than an other one");
         }
     }

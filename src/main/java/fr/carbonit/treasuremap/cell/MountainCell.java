@@ -7,7 +7,7 @@ public class MountainCell
     }
 
     public String toString() {
-        return "M - " + coords.x + " - " + coords.y;
+        return "M - " + coordinates.x + " - " + coordinates.y;
     }
 
     @Override

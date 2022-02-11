@@ -8,7 +8,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -113,15 +113,16 @@ class TreasureHuntTest {
         treasureHunt.putAdventurerOnTreasureMap(new PlainAdventurer("Lara",
                                                                     new Point(1, 1),
                                                                     AdventurerOrientation.S,
-                                                                    new ArrayDeque<>(Arrays.asList("A",
-                                                                                                   "A",
-                                                                                                   "D",
-                                                                                                   "A",
-                                                                                                   "D",
-                                                                                                   "A",
-                                                                                                   "G",
-                                                                                                   "G",
-                                                                                                   "A"))));
+                                                                    new ArrayList<>(Arrays.asList("A",
+                                                                                                  "A",
+                                                                                                  "D",
+                                                                                                  "A",
+                                                                                                  "D",
+                                                                                                  "A",
+                                                                                                  "G",
+                                                                                                  "G",
+                                                                                                  "A")) {
+                                                                    }));
 
         // When
         treasureHunt.simulate();
@@ -142,22 +143,22 @@ class TreasureHuntTest {
         PlainAdventurer firstAdventurer = new PlainAdventurer("Lara",
                                                               new Point(1, 1),
                                                               AdventurerOrientation.S,
-                                                              new ArrayDeque<>(Arrays.asList("A",
-                                                                                             "A",
-                                                                                             "D",
-                                                                                             "A",
-                                                                                             "D",
-                                                                                             "A",
-                                                                                             "G",
-                                                                                             "G",
-                                                                                             "A")));
+                                                              new ArrayList<>(Arrays.asList("A",
+                                                                                            "A",
+                                                                                            "D",
+                                                                                            "A",
+                                                                                            "D",
+                                                                                            "A",
+                                                                                            "G",
+                                                                                            "G",
+                                                                                            "A")));
         treasureHunt.putAdventurerOnTreasureMap(firstAdventurer);
         // When
 
         PlainAdventurer secondAdventurer = new PlainAdventurer("Indiana",
                                                                new Point(1, 1),
                                                                AdventurerOrientation.S,
-                                                               new ArrayDeque<>(Arrays.asList(
+                                                               new ArrayList<>(Arrays.asList(
                                                                        "A",
                                                                        "A",
                                                                        "D",

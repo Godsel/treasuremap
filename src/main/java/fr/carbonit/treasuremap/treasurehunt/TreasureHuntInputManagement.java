@@ -9,9 +9,9 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class TreasureHuntInputManagement {
     private final String       filePath;
@@ -53,18 +53,34 @@ public class TreasureHuntInputManagement {
                                                       Integer.valueOf(split[2]));
                 break;
             case "A":
+                AdventurerOrientation adventurerOrientation = readAdventurerOrientation(split[4]);
+                List<String> actions = readAdventurerActions(split[5]);
                 treasureHunt.putAdventurerOnTreasureMap(new PlainAdventurer(split[1],
                                                                             new Point(Integer.valueOf(split[2]),
                                                                                       Integer.valueOf(split[3])),
-                                                                            AdventurerOrientation.valueOf(
-                                                                                    split[4]),
-                                                                            Arrays.stream(split[5].split(""))
-                                                                                  .collect(
-                                                                                          Collectors.toCollection(
-                                                                                                  ArrayDeque::new))));
+                                                                            adventurerOrientation,
+                                                                            actions));
                 break;
             default:
                 break;
         }
+    }
+
+    private List<String> readAdventurerActions(String s) {
+        // gets "AAAA" as modifiable list
+        List<String> actions = new ArrayList<>(Arrays.asList((s.split(""))));
+
+        if (actions.stream()
+                   .allMatch(string -> string.equals("A") || string.equals("D") || string.equals("G"))) {
+            return actions;
+        }
+        throw new DataValidity("Unsupported Adventurer Actions");
+    }
+
+    private AdventurerOrientation readAdventurerOrientation(String name) {
+        if (name.equals("N") || name.equals("S") || name.equals("E") || name.equals("O")) {
+            return AdventurerOrientation.valueOf(name);
+        }
+        throw new DataValidity("Unsupported Orientation");
     }
 }

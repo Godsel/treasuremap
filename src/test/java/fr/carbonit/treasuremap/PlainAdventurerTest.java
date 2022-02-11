@@ -10,8 +10,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 class PlainAdventurerTest {
 
@@ -28,7 +29,7 @@ class PlainAdventurerTest {
         Adventurer plainAdventurer = new PlainAdventurer(name,
                                                          new Point(0, 3),
                                                          adventurerOrientation,
-                                                         new ArrayDeque<>());
+                                                         new ArrayList<>());
         plainAdventurer.winTreasure(new PlainCell(0, 0));
         plainAdventurer.winTreasure(new PlainCell(0, 0));
         plainAdventurer.winTreasure(new PlainCell(0, 0));
@@ -47,7 +48,7 @@ class PlainAdventurerTest {
         MapCell[][]           mapCell               = new MapCell[3][4];
         initializeMapWithPlainCells(mapCell);
 
-        ArrayDeque<String> actions = new ArrayDeque<>();
+        List<String> actions = new ArrayList<>();
         actions.add("A");
         Adventurer plainAdventurer = new PlainAdventurer(name, new Point(1, 1), adventurerOrientation, actions);
         // When
@@ -68,7 +69,7 @@ class PlainAdventurerTest {
         MapCell[][]           mapCell               = new MapCell[3][4];
         initializeMapWithPlainCells(mapCell);
 
-        ArrayDeque<String> actions = new ArrayDeque<>();
+        List<String> actions = new ArrayList<>();
         actions.add("A");
         Adventurer plainAdventurer = new PlainAdventurer(name, new Point(1, 1), adventurerOrientation, actions);
         // When
@@ -89,9 +90,12 @@ class PlainAdventurerTest {
         MapCell[][]           mapCell               = new MapCell[3][4];
         initializeMapWithPlainCells(mapCell);
 
-        ArrayDeque<String> actions = new ArrayDeque<>();
+        List<String> actions = new ArrayList<>();
         actions.add("D");
-        Adventurer plainAdventurer = new PlainAdventurer(name, new Point(1, 1), adventurerOrientation, actions);
+        Adventurer plainAdventurer = new PlainAdventurer(name,
+                                                         new Point(1, 1),
+                                                         adventurerOrientation,
+                                                         actions);
 
         //When
         plainAdventurer.move(mapCell);
@@ -110,9 +114,12 @@ class PlainAdventurerTest {
         MapCell[][]           mapCell               = new MapCell[3][4];
         initializeMapWithPlainCells(mapCell);
 
-        ArrayDeque<String> actions = new ArrayDeque<>();
+        List<String> actions = new ArrayList<>();
         actions.add("G");
-        Adventurer plainAdventurer = new PlainAdventurer(name, new Point(1, 1), adventurerOrientation, actions);
+        Adventurer plainAdventurer = new PlainAdventurer(name,
+                                                         new Point(1, 1),
+                                                         adventurerOrientation,
+                                                         actions);
 
         //When
         plainAdventurer.move(mapCell);
@@ -137,16 +144,19 @@ class PlainAdventurerTest {
         mapCell[1][3].addTreasure();
 
 
-        ArrayDeque<String> actions = new ArrayDeque<>(Arrays.asList("A",
-                                                                    "A",
-                                                                    "D",
-                                                                    "A",
-                                                                    "D",
-                                                                    "A",
-                                                                    "G",
-                                                                    "G",
-                                                                    "A"));
-        Adventurer plainAdventurer = new PlainAdventurer(name, new Point(1, 1), adventurerOrientation, actions);
+        List<String> actions = new ArrayList<>(Arrays.asList("A",
+                                                             "A",
+                                                             "D",
+                                                             "A",
+                                                             "D",
+                                                             "A",
+                                                             "G",
+                                                             "G",
+                                                             "A"));
+        Adventurer plainAdventurer = new PlainAdventurer(name,
+                                                         new Point(1, 1),
+                                                         adventurerOrientation,
+                                                         actions);
 
         //When
         while (!actions.isEmpty()) {

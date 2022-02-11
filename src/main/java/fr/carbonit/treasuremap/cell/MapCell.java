@@ -3,12 +3,12 @@ package fr.carbonit.treasuremap.cell;
 import java.awt.*;
 
 public abstract class MapCell {
-    protected Point   coords;
-    private   Boolean occupied                = false;
+    protected Point   coordinates;
+    private   Boolean occupiedByAdventurer    = false;
     private   Integer numberOfTreasuresOnCell = 0;
 
     protected MapCell(Integer xCoordinate, Integer yCoordinate) {
-        this.coords = new Point(xCoordinate, yCoordinate);
+        this.coordinates = new Point(xCoordinate, yCoordinate);
     }
 
     public Boolean isMountain() {
@@ -27,11 +27,11 @@ public abstract class MapCell {
         return numberOfTreasuresOnCell;
     }
 
-    public void updateOccupiedStatus() {
-        occupied = !occupied;
+    public void updateAdventurerStatus() {
+        occupiedByAdventurer = !occupiedByAdventurer;
     }
 
-    public Boolean isOccupied() {
-        return occupied;
+    public Boolean isOccupiedByAnAdventurer() {
+        return occupiedByAdventurer;
     }
 }

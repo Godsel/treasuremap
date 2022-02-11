@@ -7,6 +7,6 @@ public class PlainCell extends MapCell {
     }
 
     public String toString() {
-        return "P - " + coords.x + " - " + coords.y;
+        return "P - " + coordinates.x + " - " + coordinates.y;
     }
 }

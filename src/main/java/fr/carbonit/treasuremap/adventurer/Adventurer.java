@@ -4,7 +4,7 @@ package fr.carbonit.treasuremap.adventurer;
 import fr.carbonit.treasuremap.cell.MapCell;
 
 import java.awt.*;
-import java.util.Deque;
+import java.util.List;
 
 public abstract class Adventurer
         implements TreasureHunter {
@@ -12,10 +12,10 @@ public abstract class Adventurer
     protected     Integer               numberOfTreasure = 0;
     protected     Point                 coordinates;
     protected     AdventurerOrientation adventurerOrientation;
-    protected     Deque<String>         actions;
+    protected     List<String>          actions;
 
     protected Adventurer(String name, Point coords, AdventurerOrientation adventurerOrientation,
-                         Deque<String> actions) {
+                         List<String> actions) {
         this.name                  = name;
         this.coordinates           = coords;
         this.adventurerOrientation = adventurerOrientation;
