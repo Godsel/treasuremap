@@ -2,6 +2,7 @@ package fr.carbonit.treasuremap.treasurehunt;
 
 import fr.carbonit.treasuremap.adventurer.AdventurerOrientation;
 import fr.carbonit.treasuremap.adventurer.PlainAdventurer;
+import fr.carbonit.treasuremap.exception.DataValidity;
 import fr.carbonit.treasuremap.exception.TreasureHuntFile;
 
 import java.awt.*;
@@ -22,7 +23,7 @@ public class TreasureHuntInputManagement {
 
     public TreasureHunt read()
             throws
-            RuntimeException {
+            DataValidity {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath != null ? filePath : ""))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -38,7 +39,10 @@ public class TreasureHuntInputManagement {
         String[] split = line.split(" - ");
         switch (split[0]) {
             case "C":
-                treasureHunt = new TreasureHunt(Integer.valueOf(split[1]), Integer.valueOf(split[2]));
+                // only when this is the first line for C (ignoring the following ones)
+                if (treasureHunt == null) {
+                    treasureHunt = new TreasureHunt(Integer.valueOf(split[1]), Integer.valueOf(split[2]));
+                }
                 break;
             case "M":
                 treasureHunt.putMountainOnTreasureMap(Integer.valueOf(split[1]), Integer.valueOf(split[2]));

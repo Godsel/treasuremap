@@ -4,6 +4,7 @@ import fr.carbonit.treasuremap.adventurer.AdventurerOrientation;
 import fr.carbonit.treasuremap.adventurer.PlainAdventurer;
 import fr.carbonit.treasuremap.exception.DataValidity;
 import fr.carbonit.treasuremap.treasurehunt.TreasureHunt;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -170,6 +171,53 @@ class TreasureHuntTest {
             treasureHunt.putAdventurerOnTreasureMap(secondAdventurer);
         }).isInstanceOf(
                 DataValidity.class);
+    }
+
+    @Test
+    void should_throw_datavalidity_when_coordinates_are_out_bounds_for_adventurer() {
+        //Given
+        Integer mapWidth  = 3;
+        Integer mapHeight = 4;
+
+        TreasureHunt treasureHunt = new TreasureHunt(mapWidth, mapHeight);
+
+        // When // Then
+        Assertions.assertThatCode(() -> treasureHunt.putAdventurerOnTreasureMap(new PlainAdventurer("",
+                                                                                                    new Point(-1, 5),
+                                                                                                    null,
+                                                                                                    null)))
+                  .isInstanceOf(
+                          DataValidity.class);
+
+    }
+
+    @Test
+    void should_throw_datavalidity_when_coordinates_are_out_bounds_for_mountain() {
+        //Given
+        Integer mapWidth  = 3;
+        Integer mapHeight = 4;
+
+        TreasureHunt treasureHunt = new TreasureHunt(mapWidth, mapHeight);
+
+        // When // Then
+        Assertions.assertThatCode(() -> treasureHunt.putMountainOnTreasureMap(-1, 5))
+                  .isInstanceOf(
+                          DataValidity.class);
+    }
+
+    @Test
+    void should_throw_datavalidity_when_coordinates_are_out_bounds_for_treasure() {
+        //Given
+        Integer mapWidth  = 3;
+        Integer mapHeight = 4;
+
+        TreasureHunt treasureHunt = new TreasureHunt(mapWidth, mapHeight);
+
+        // When // Then
+        Assertions.assertThatCode(() -> treasureHunt.putTreasureOnTreasureMap(-1, 5, 1))
+                  .isInstanceOf(
+                          DataValidity.class);
+
     }
 
 

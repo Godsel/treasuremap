@@ -36,11 +36,24 @@ public class TreasureHunt {
         }
     }
 
-    public void putMountainOnTreasureMap(Integer xCoordinate, Integer yCoordinate) {
+    public void putMountainOnTreasureMap(Integer xCoordinate, Integer yCoordinate)
+            throws
+            DataValidity {
+        verifyCoordinates(xCoordinate, yCoordinate);
         this.treasureMap[xCoordinate][yCoordinate] = new MountainCell(xCoordinate, yCoordinate);
     }
 
-    public void putTreasureOnTreasureMap(int xCoordinate, int yCoordinate, Integer number) {
+    private void verifyCoordinates(Integer xCoordinate, Integer yCoordinate) {
+        if ((xCoordinate > this.treasureMap.length || xCoordinate < 0) ||
+            (yCoordinate > this.treasureMap[0].length || yCoordinate < 0)) {
+            throw new DataValidity("Object cannot be placed due to outbounds coordinates");
+        }
+    }
+
+    public void putTreasureOnTreasureMap(int xCoordinate, int yCoordinate, Integer number)
+            throws
+            DataValidity {
+        verifyCoordinates(xCoordinate, yCoordinate);
         for (int treasuresNumber = 0; treasuresNumber < number; treasuresNumber++) {
             this.treasureMap[xCoordinate][yCoordinate].addTreasure();
         }
@@ -49,6 +62,7 @@ public class TreasureHunt {
     public void putAdventurerOnTreasureMap(Adventurer adventurer)
             throws
             DataValidity {
+        verifyCoordinates(adventurer.getCoordinates().x, adventurer.getCoordinates().y);
         MapCell mapCell = this.treasureMap[adventurer.getCoordinates().x][adventurer.getCoordinates().y];
         verifyCollisionWithExistingAdventurer(mapCell);
         mapCell.updateOccupiedStatus();
@@ -82,6 +96,7 @@ public class TreasureHunt {
 
         writeAdventurerDefinitions(simulationResult);
 
+        // little hack when none adventurer
         deleteEmptyLine(simulationResult);
         return simulationResult.toString();
     }
